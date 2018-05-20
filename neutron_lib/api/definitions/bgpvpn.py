@@ -14,6 +14,7 @@
 
 from neutron_lib.api import converters
 from neutron_lib.api.definitions import l3
+from neutron_lib import constants
 from neutron_lib.db import constants as db_const
 
 # Regular expression to validate an empty string
@@ -128,6 +129,13 @@ RESOURCE_ATTRIBUTE_MAP = {
                                               RTRD_REGEX},
                                  'is_visible': True,
                                  'enforce_policy': True},
+        'vni': {'allow_post': True, 'allow_put': True,
+                'convert_to': converters.convert_to_int_if_not_none,
+                'validate': {
+                    'type:range_or_none':
+                        [constants.MIN_VXLAN_VNI, constants.MAX_VXLAN_VNI]},
+                'is_visible': True,
+                'enforce_policy': True},
         'networks': {'allow_post': False, 'allow_put': False,
                      'is_visible': True,
                      'enforce_policy': True},
@@ -177,7 +185,71 @@ SUB_RESOURCE_ATTRIBUTE_MAP = {
                           'is_visible': True,
                           'enforce_policy': True}
         }
-    }
+    },
+    'learned_gateways': {
+        'parent': {'collection_name': COLLECTION_NAME,
+                   'member_name': RESOURCE_NAME},
+        'parameters': {
+            'id': {'allow_post': False, 'allow_put': False,
+                   'is_visible': True},
+            'agent_id': {'allow_post': False, 'allow_put': False,
+                         'is_visible': True},
+            'ip_address': {'allow_post': False, 'allow_put': False,
+                           'is_visible': True},
+            'updated_at': {'allow_post': False, 'allow_put': False,
+                           'is_visible': True},
+        },
+    },
+    'active_gateways': {
+        'parent': {'collection_name': COLLECTION_NAME,
+                   'member_name': RESOURCE_NAME},
+        'parameters': {
+            'id': {'allow_post': False, 'allow_put': False,
+                   'is_visible': True},
+            'agent_id': {'allow_post': False, 'allow_put': False,
+                         'is_visible': True},
+            'ip_address': {'allow_post': False, 'allow_put': False,
+                           'is_visible': True},
+            'updated_at': {'allow_post': False, 'allow_put': False,
+                           'is_visible': True},
+        },
+    },
+    'learned_devices': {
+        'parent': {'collection_name': COLLECTION_NAME,
+                   'member_name': RESOURCE_NAME},
+        'parameters': {
+            'id': {'allow_post': False, 'allow_put': False,
+                   'is_visible': True},
+            'agent_id': {'allow_post': False, 'allow_put': False,
+                         'is_visible': True},
+            'mac_address': {'allow_post': False, 'allow_put': False,
+                            'is_visible': True},
+            'ip_address': {'allow_post': False, 'allow_put': False,
+                           'is_visible': True},
+            'gateway_ip': {'allow_post': False, 'allow_put': False,
+                           'is_visible': True},
+            'updated_at': {'allow_post': False, 'allow_put': False,
+                           'is_visible': True},
+        }
+    },
+    'active_devices': {
+        'parent': {'collection_name': COLLECTION_NAME,
+                   'member_name': RESOURCE_NAME},
+        'parameters': {
+            'id': {'allow_post': False, 'allow_put': False,
+                   'is_visible': True},
+            'agent_id': {'allow_post': False, 'allow_put': False,
+                         'is_visible': True},
+            'mac_address': {'allow_post': False, 'allow_put': False,
+                            'is_visible': True},
+            'ip_address': {'allow_post': False, 'allow_put': False,
+                           'is_visible': True},
+            'gateway_ip': {'allow_post': False, 'allow_put': False,
+                           'is_visible': True},
+            'updated_at': {'allow_post': False, 'allow_put': False,
+                           'is_visible': True},
+        }
+    },
 }
 
 ACTION_MAP = {

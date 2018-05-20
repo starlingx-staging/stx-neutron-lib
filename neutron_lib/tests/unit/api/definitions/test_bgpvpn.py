@@ -20,8 +20,12 @@ class BgpvpnDefinitionTestCase(base.DefinitionBaseTestCase):
     extension_resources = (bgpvpn.COLLECTION_NAME,)
     extension_attributes = ('type', 'route_targets', 'import_targets',
                             'export_targets', 'route_distinguishers',
-                            'networks', 'routers', 'router_id', 'network_id')
-    extension_subresources = ('network_associations', 'router_associations')
+                            'networks', 'routers', 'router_id', 'network_id',
+                            'vni', 'agent_id', 'ip_address',
+                            'mac_address', 'updated_at')
+    extension_subresources = ('network_associations', 'router_associations',
+                              'learned_gateways', 'active_gateways',
+                              'learned_devices', 'active_devices')
 
     def _data_for_invalid_rtdt(self):
         values = [[':1'],
